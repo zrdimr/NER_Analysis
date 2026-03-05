@@ -33,7 +33,7 @@ jobs:
       - name: Install ML Dependencies
         run: |
           pip install --upgrade pip
-          pip install torch transformers datasets pandas scikit-learn matplotlib seaborn pytorch-crf textblob
+          pip install "transformers[torch]" "accelerate>=1.1.0" datasets pandas scikit-learn matplotlib seaborn pytorch-crf textblob
           python -m textblob.download_corpora
           
       - name: Run Single Architectural Combination
