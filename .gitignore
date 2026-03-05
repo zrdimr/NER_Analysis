@@ -16,7 +16,7 @@ __pycache__/
 .idea/
 
 # Large model data & logs
-models/
+/ml_pipeline/models/
 data/raw/
 *.log
 runner_logs.txt
