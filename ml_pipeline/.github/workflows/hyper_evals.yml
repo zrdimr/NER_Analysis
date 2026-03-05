@@ -1,0 +1,87 @@
+name: 72x Parallel Hyper-Evaluations Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  hyper-eval:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false  # Allows all 72 to finish even if one matrix element crashes
+      matrix:
+        dataset: ["dreaddit", "Vibree_Synthetic_English", "Vibree_indonesian"]
+        entda: ["False", "True"]
+        base_model: ["bert", "mobilebert", "indobert", "mentalbert"]
+        architecture: ["transformer", "transformer_lstm", "transformer_lstm_crf"]
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      
+      - name: Set up Python CPU/CUDA
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install ML Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install torch transformers datasets pandas scikit-learn matplotlib seaborn pytorch-crf textblob
+          python -m textblob.download_corpora
+          
+      - name: Run Single Architectural Combination
+        run: |
+          python run_single_experiment.py \
+            --dataset ${{ matrix.dataset }} \
+            --entda ${{ matrix.entda }} \
+            --base_model ${{ matrix.base_model }} \
+            --architecture ${{ matrix.architecture }}
+            
+      - name: Upload Segmented CSV Matrix Result
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ matrix.dataset }}-${{ matrix.entda }}-${{ matrix.base_model }}-${{ matrix.architecture }}
+          path: results/*.csv
+          retention-days: 1
+          
+  merge-results:
+    needs: hyper-eval
+    runs-on: ubuntu-latest
+    if: always() # Run even if some combinations fail
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install Dependencies
+        run: pip install pandas matplotlib seaborn
+        
+      - name: Download all segregated results
+        uses: actions/download-artifact@v4
+        with:
+          path: all-results
+          pattern: result-*
+          merge-multiple: true
+          
+      - name: Consolidate Master Matrix & Generate Full Report
+        run: |
+          mkdir -p results
+          python -c "import pandas as pd; import glob; files = glob.glob('all-results/*.csv'); df = pd.concat([pd.read_csv(f) for f in files], ignore_index=True); df.to_csv('results/research_matrix.csv', index=False)"
+          # Generates the Markdown Paper and Seaborn Visualizations based on CSV
+          python generate_academic_report.py
+          
+      - name: Release Final Paper and Master Matrix
+        uses: actions/upload-artifact@v4
+        with:
+          name: Full-Academic-Research-Paper
+          path: |
+            results/research_matrix.csv
+            /Users/riadizur/.gemini/antigravity/brain/a5cf41f8-124c-482a-9adc-7c67d004bf97/Full_Academic_Research_Paper.md
+            /Users/riadizur/.gemini/antigravity/brain/a5cf41f8-124c-482a-9adc-7c67d004bf97/*.png

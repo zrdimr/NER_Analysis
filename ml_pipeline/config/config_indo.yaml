@@ -1,0 +1,21 @@
+data:
+  processed_path: data/processed/indonesian_processed_data.csv
+  raw_path: data/raw/Vibree_indonesian_stress_dataset.csv
+features:
+  max_features: 100
+model:
+  model_save_path: models/inference_models/logistic_regression.joblib
+  random_state: 42
+  scaler_save_path: models/inference_models/scaler.joblib
+  test_size: 0.2
+  tfidf_save_path: models/inference_models/tfidf_vectorizer.joblib
+  type: logistic_regression
+pipeline:
+  name: Stress Analysis NLP Pipeline - Indonesian EnTDA
+  version: 1.2.0
+transformer:
+  batch_size: 4
+  epochs: 3
+  learning_rate: 2.0e-05
+  max_length: 128
+  model_save_dir: models/inference_models

@@ -1,0 +1,25 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs
+.DS_Store
+.vscode/
+.idea/
+
+# Large model data & logs
+models/
+data/raw/
+*.log
+runner_logs.txt
+
+# Jupyter
+.ipynb_checkpoints
