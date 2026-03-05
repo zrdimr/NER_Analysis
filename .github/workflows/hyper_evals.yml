@@ -16,6 +16,10 @@ jobs:
         base_model: ["bert", "mobilebert", "indobert", "mentalbert"]
         architecture: ["transformer", "transformer_lstm", "transformer_lstm_crf"]
 
+    defaults:
+      run:
+        working-directory: ml_pipeline
+
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
@@ -44,13 +48,16 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: result-${{ matrix.dataset }}-${{ matrix.entda }}-${{ matrix.base_model }}-${{ matrix.architecture }}
-          path: results/*.csv
+          path: ml_pipeline/results/*.csv
           retention-days: 1
           
   merge-results:
     needs: hyper-eval
     runs-on: ubuntu-latest
     if: always() # Run even if some combinations fail
+    defaults:
+      run:
+        working-directory: ml_pipeline
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
@@ -66,7 +73,7 @@ jobs:
       - name: Download all segregated results
         uses: actions/download-artifact@v4
         with:
-          path: all-results
+          path: ml_pipeline/all-results
           pattern: result-*
           merge-multiple: true
           
@@ -82,6 +89,6 @@ jobs:
         with:
           name: Full-Academic-Research-Paper
           path: |
-            results/research_matrix.csv
-            /Users/riadizur/.gemini/antigravity/brain/a5cf41f8-124c-482a-9adc-7c67d004bf97/Full_Academic_Research_Paper.md
-            /Users/riadizur/.gemini/antigravity/brain/a5cf41f8-124c-482a-9adc-7c67d004bf97/*.png
+            ml_pipeline/results/research_matrix.csv
+            ml_pipeline/results/Full_Academic_Research_Paper.md
+            ml_pipeline/results/*.png
