@@ -3,6 +3,11 @@ import os
 import pandas as pd
 import torch
 import traceback
+import sys
+
+# Ensure Python can find the src module relative to this script
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from src.models.train_generic import train_and_eval_generic
 
 def main():
