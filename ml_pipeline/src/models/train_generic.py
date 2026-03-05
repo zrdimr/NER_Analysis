@@ -53,6 +53,9 @@ class CustomTrainer(Trainer):
             # Use contiguous array to avoid NoneType shape errors on View
             loss = loss_fct(logits.contiguous().view(-1, loss_feature_dims), labels.contiguous().view(-1))
             
+            # Wrap standard output logic back to tuple format so Huggingface Trainer `outputs[1:]` doesnt truncate tensor data length
+            outputs = (loss, logits)
+            
         return (loss, outputs) if return_outputs else loss
 
 
