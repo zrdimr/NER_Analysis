@@ -139,12 +139,22 @@ def train_and_eval_generic(dataset_name, model_base, architecture, apply_entda=F
     )
     
     print(f"Training {model_base} with {architecture} on {dataset_name} (EnTDA={apply_entda})...")
-    trainer.train()
+    train_results = trainer.train()
+    training_time = train_results.metrics.get("train_runtime", 0) if hasattr(train_results, 'metrics') else 0
     
     eval_results = trainer.evaluate()
     
     # Save the custom model explicitly
     torch.save(model.state_dict(), os.path.join(save_dir, "model_weights.pth"))
     tokenizer.save_pretrained(save_dir)
+    
+    # Calculate folder size
+    size_mb = sum(os.path.getsize(os.path.join(dirpath, f)) for dirpath, _, files in os.walk(save_dir) for f in files) / (1024 * 1024)
+    
+    eval_results["training_time"] = training_time
+    eval_results["model_size_mb"] = size_mb
+    eval_results["jumlah_dataset"] = len(train_labels)
+    eval_results["positif_dataset"] = sum(1 for x in train_labels if x == 1)
+    eval_results["negatif_dataset"] = sum(1 for x in train_labels if x == 0)
     
     return eval_results

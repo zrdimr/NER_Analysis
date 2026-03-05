@@ -38,4 +38,3 @@ Vibree_Synthetic_English,False,mentalbert,transformer_lstm_crf,0.64,0.6069,0.530
 Vibree_Synthetic_English,True,bert,transformer,0.62,0.5677,0.5934,0.5803,SUCCESS
 Vibree_Synthetic_English,True,bert,transformer_lstm,0.64,0.5901,0.6114,0.6006,SUCCESS
 Vibree_Synthetic_English,True,bert,transformer_lstm_crf,0.6067,0.5539,0.5723,0.563,SUCCESS
-Vibree_Synthetic_English,True,mobilebert,transformer,0.0,0.0,0.0,0.0,FAILED: Found input variables with inconsistent numbers of

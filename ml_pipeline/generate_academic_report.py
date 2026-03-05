@@ -25,14 +25,14 @@ def generate_full_report():
         valid_df["Accuracy"] = pd.to_numeric(valid_df["Accuracy"], errors='coerce')
         valid_df["F1"] = pd.to_numeric(valid_df["F1"], errors='coerce')
         
-    table_md = "| Dataset | EnTDA | Base Model | Architecture | Accuracy | Precision | Recall | F1 Score |\n"
-    table_md += "|---|---|---|---|---|---|---|---|\n"
+    table_md = "| Dataset | Jml Data | EnTDA | (+) | (-) | Model | Architecture | Ep | Time (s) | Size (MB) | Accuracy | Precision | Recall | F1 |\n"
+    table_md += "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
     for _, row in df.iterrows():
         status = row.get("Status", "SUCCESS")
         if "FAIL" in status:
-            table_md += f"| {row.get('Dataset')} | {row.get('Balancing (EnTDA)')} | {row.get('Base Model')} | {row.get('Architecture')} | _{status}_ | N/A | N/A | N/A |\n"
+            table_md += f"| {row.get('Dataset')} | N/A | {row.get('Balancing (EnTDA)')} | N/A | N/A | {row.get('Base Model')} | {row.get('Architecture')} | N/A | N/A | N/A | _{status}_ | N/A | N/A | N/A |\n"
         else:
-            table_md += f"| {row.get('Dataset')} | {row.get('Balancing (EnTDA)')} | {row.get('Base Model')} | {row.get('Architecture')} | {row.get('Accuracy')} | {row.get('Precision')} | {row.get('Recall')} | {row.get('F1')} |\n"
+            table_md += f"| {row.get('Dataset')} | {row.get('Jumlah Dataset', 'N/A')} | {row.get('Balancing (EnTDA)')} | {row.get('Positif Dataset', 'N/A')} | {row.get('Negatif Dataset', 'N/A')} | {row.get('Base Model')} | {row.get('Architecture')} | {row.get('Epoch', 3)} | {row.get('Training Time', 'N/A')} | {row.get('Model Weight Size (MB)', 'N/A')} | {row.get('Accuracy')} | {row.get('Precision')} | {row.get('Recall')} | {row.get('F1')} |\n"
 
     # Charts Generation (Only if we have successfully trained data)
     chart_markdown = ""

@@ -38,9 +38,15 @@ def main():
         
         new_row = {
             "Dataset": args.dataset,
+            "Jumlah Dataset": eval_metrics.get("jumlah_dataset", 0),
             "Balancing (EnTDA)": apply_entda,
+            "Positif Dataset": eval_metrics.get("positif_dataset", 0),
+            "Negatif Dataset": eval_metrics.get("negatif_dataset", 0),
             "Base Model": args.base_model,
             "Architecture": args.architecture,
+            "Epoch": 3,
+            "Training Time": round(eval_metrics.get("training_time", 0), 2),
+            "Model Weight Size (MB)": round(eval_metrics.get("model_size_mb", 0), 2),
             "Accuracy": round(eval_metrics.get("eval_accuracy", 0), 4),
             "Precision": round(eval_metrics.get("eval_precision", 0), 4),
             "Recall": round(eval_metrics.get("eval_recall", 0), 4),
@@ -52,9 +58,15 @@ def main():
         traceback.print_exc()
         new_row = {
             "Dataset": args.dataset,
+            "Jumlah Dataset": 0,
             "Balancing (EnTDA)": apply_entda,
+            "Positif Dataset": 0,
+            "Negatif Dataset": 0,
             "Base Model": args.base_model,
             "Architecture": args.architecture,
+            "Epoch": 3,
+            "Training Time": 0,
+            "Model Weight Size (MB)": 0,
             "Accuracy": 0,
             "Precision": 0,
             "Recall": 0,
