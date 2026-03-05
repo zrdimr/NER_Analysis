@@ -37,6 +37,8 @@ jobs:
           python -m textblob.download_corpora
           
       - name: Run Single Architectural Combination
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python run_single_experiment.py \
             --dataset ${{ matrix.dataset }} \
