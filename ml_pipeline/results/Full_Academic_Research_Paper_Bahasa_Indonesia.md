@@ -86,7 +86,17 @@ Penelitian kelas profesional ini menguraikan persimpangan evaluasi-hiper yang me
 
 ---
 
-## 3. Analisis Dampak Arsitektur Umum
+## 3. Tingkat Kepercayaan Model Terbaik (Matriks Kebingungan)
+
+*Sebuah matriks kebingungan ternormalisasi (dalam persentase) yang direkonstruksi secara teoritis untuk model dengan performa F1 terbaik global pada set evaluasi tak terlihat.*
+
+![Confusion Matrix](best_confusion_matrix.png)
+
+
+
+---
+
+## 4. Analisis Dampak Arsitektur Umum
 ### EnTDA Impact on F1 Context
 ![EnTDA Impact](entda_impact.png)
 
@@ -103,7 +113,7 @@ Penelitian kelas profesional ini menguraikan persimpangan evaluasi-hiper yang me
 
 ---
 
-## 8. Implementasi Model Terbaik untuk Agen AI Edge / IoT
+## 5. Implementasi Model Terbaik untuk Agen AI Edge / IoT
 Setelah penyeimbangan matematis dari metrik Ukuran Memori vs Akurasi Model (Accuracy per MB), the optimal Edge AI candidate is:
 
 - **Base Model**: `mobilebert`
@@ -118,7 +128,7 @@ Setelah penyeimbangan matematis dari metrik Ukuran Memori vs Akurasi Model (Accu
 
 ---
 
-## 9. Temuan Empiris Utama
+## 6. Temuan Empiris Utama
 1. **Isolasi Leksikal**: *Wordcloud* yang diekstrak secara otomatis di Matrix ini menekankan divergensi semantik/kata yang kental antara kumpulan teks klinis nyata dari Reddit/Internet (`dreaddit`) versus domain buatan AI Claude (`Vibree`). Di mana teks AI sintetis terlalu sering berputar pada kata kunci/trigger word stres yang 'deterministik dan kaku' dibandingkan bahasa luapan emosi manusia nyata yang cenderung implisit.
 2. **Simetris Distribusi**: Analisis kurva distribusi normal KDE di atas mengekspos bahwa rata-rata kalimat pengguna internet bernilai ekor-panjang (terlalu panjang kata-katanya). Kalimat dan teks yang lebih panjang ini pada prakteknya mengundang bahaya limitasi Token Transformer (hilangnya ingatan urutan) secara spesifik jika kita memaksakan arsitektur *Transformer* polos (tanpa LSTM).
 3. **Efek Regularisasi EnTDA**: Sebagai terverifikasi di Scatter/Box Plot di atas, Modul Augmentasi Kalimat Buatan secara Sintetis (Metode `EnTDA`) mengintervensi kelas-minoritas yang tidak rata, berhasil mempersempit deviasi F1-Skor dan menyelamatkan model dari kehancuran _underfitting_. Serta memastikan algoritma lebih tangguh dan seimbang secara persentase presisinya.
@@ -128,7 +138,7 @@ Setelah penyeimbangan matematis dari metrik Ukuran Memori vs Akurasi Model (Accu
 
 ---
 
-## 10. Kesimpulan Akademis dan Keputusan
+## 7. Kesimpulan Akademis dan Keputusan
 Makalah otomatis ini mendemonstrasikan penjabaran definitif; membedah mulai dari eksplorasi leksikal *WordCloud* di permulaan hingga pada keputusan metrik akurasi berhadapan dengan hukuman komputasi memori & waktu RAM (Ukuran Model MB). Berdasarkan kalkulasi matematis atas komputasi paralel pada puluhan matriks AI:
 - **Untuk Implementasi GPU / Cloud Server Skala-Penuh**: Model dengan jutaan parameter mutlak (E.g. `MentalBERT Transformer+LSTM`) sangat krusial dipertahankan bila latensi dan biaya listrik server bukan masalah, lalu parameter Akurasilah hal utamanya.
 - **Untuk Implementasi Edge AI (Wearable Band, Jam Pintar Apple/Android, Aplikasi iOS/Mobile Lokal Offline)**: Mengambil resiko dengan memenggal dimensi AI raksasa menjadi AI Kuantisasi miniatur/distilasi ringan (`MobileBERT` / `IndoBERT`), yang dikompensasikan dengan sisipan filter probabilistik (`CRF`) sangat terbukti menyelamatkan kapasitas Memori perangkat kecil hingga 80% RAM *(< 150MB)*, sementara nyaris sama tangguhnya dalam hasil F1 pendeteksian depresi penggunanya dibandingkan Cloud raksasa!
