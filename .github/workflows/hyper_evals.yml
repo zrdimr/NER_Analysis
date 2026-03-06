@@ -70,7 +70,7 @@ jobs:
           python-version: '3.11'
           
       - name: Install Dependencies
-        run: pip install pandas matplotlib seaborn
+        run: pip install pandas matplotlib seaborn wordcloud scipy
         
       - name: Download all segregated results
         uses: actions/download-artifact@v4
