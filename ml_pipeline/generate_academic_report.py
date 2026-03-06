@@ -29,10 +29,15 @@ def generate_full_report():
     table_md += "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n"
     for _, row in df.iterrows():
         status = row.get("Status", "SUCCESS")
+        
+        def safe_val(col_name, default_val="N/A"):
+            val = row.get(col_name)
+            return default_val if pd.isna(val) else val
+            
         if "FAIL" in status:
             table_md += f"| {row.get('Dataset')} | N/A | {row.get('Balancing (EnTDA)')} | N/A | N/A | {row.get('Base Model')} | {row.get('Architecture')} | N/A | N/A | N/A | _{status}_ | N/A | N/A | N/A |\n"
         else:
-            table_md += f"| {row.get('Dataset')} | {row.get('Jumlah Dataset', 'N/A')} | {row.get('Balancing (EnTDA)')} | {row.get('Positif Dataset', 'N/A')} | {row.get('Negatif Dataset', 'N/A')} | {row.get('Base Model')} | {row.get('Architecture')} | {row.get('Epoch', 3)} | {row.get('Training Time', 'N/A')} | {row.get('Model Weight Size (MB)', 'N/A')} | {row.get('Accuracy')} | {row.get('Precision')} | {row.get('Recall')} | {row.get('F1')} |\n"
+            table_md += f"| {row.get('Dataset')} | {safe_val('Jumlah Dataset')} | {row.get('Balancing (EnTDA)')} | {safe_val('Positif Dataset')} | {safe_val('Negatif Dataset')} | {row.get('Base Model')} | {row.get('Architecture')} | {safe_val('Epoch', 3)} | {safe_val('Training Time')} | {safe_val('Model Weight Size (MB)')} | {row.get('Accuracy')} | {row.get('Precision')} | {row.get('Recall')} | {row.get('F1')} |\n"
 
     # Charts Generation (Only if we have successfully trained data)
     chart_markdown = ""
