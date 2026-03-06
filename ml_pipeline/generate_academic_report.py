@@ -122,42 +122,67 @@ def plot_bar_metric(df, metric, title, filename, ylabel):
     
     return f"### {title}\n![{title}]({filename})\n\n"
 
-def generate_best_model_confusion_matrix(valid_df):
-    cm_md = "## 3. Best Model Confidence (Symmetric Confusion Matrix)\n\n"
-    cm_md += "*A theoretically reconstructed normalized confusion matrix (in %) for the globally top-performing model over the unseen evaluation set.*\n\n"
+def generate_all_confusion_matrices(valid_df):
+    cm_md = "## 3. Confusion Matrix Profiles (All Architectures)\n\n"
+    cm_md += "*Theoretically reconstructed normalized confusion matrices (in %) for evaluated models across datasets.*\n\n"
     
     if valid_df.empty:
         return cm_md + "No data available.\n\n"
         
-    best = valid_df.loc[valid_df['F1'].idxmax()]
-    Accuracy = best.get('Accuracy', 0)
-    Precision = best.get('Precision', 0)
-    Recall = best.get('Recall', 0)
+    datasets = valid_df['Dataset'].unique()
+    entda_vals = valid_df['Balancing (EnTDA)'].unique()
     
-    try:
-        Pr_calc = (1 - Accuracy) / (1 - 2 * Recall + Recall / Precision)
-        TP = Pr_calc * Recall
-        FN = Pr_calc - TP
-        FP = (TP / Precision) - TP
-        TN = 1 - Pr_calc - FP
-        if Pr_calc <= 0 or Pr_calc >= 1 or Precision == 0 or Recall == 0:
-            raise ValueError()
-    except Exception:
-        TP, FN, FP, TN = Accuracy/2, (1-Accuracy)/2, (1-Accuracy)/2, Accuracy/2
+    models = ["bert", "mobilebert", "indobert", "mentalbert"]
+    architectures = ["transformer", "transformer_lstm", "transformer_lstm_crf"]
+    
+    for ds in datasets:
+        for entda in entda_vals:
+            subset = valid_df[(valid_df['Dataset'] == ds) & (valid_df['Balancing (EnTDA)'] == entda)]
+            if subset.empty:
+                continue
+                
+            fig, axes = plt.subplots(4, 3, figsize=(15, 18))
+            fig.suptitle(f"Normalized Confusion Matrices (%) - {ds} (EnTDA={entda})", fontsize=20, fontweight='bold', y=0.98)
+            
+            for i, model in enumerate(models):
+                for j, arch in enumerate(architectures):
+                    ax = axes[i, j]
+                    
+                    row = subset[(subset['Base Model'] == model) & (subset['Architecture'] == arch)]
+                    
+                    cm = np.zeros((2, 2))
+                    if not row.empty:
+                        row_data = row.iloc[0]
+                        Accuracy = row_data.get('Accuracy', 0)
+                        Precision = row_data.get('Precision', 0)
+                        Recall = row_data.get('Recall', 0)
+                        
+                        try:
+                            Pr_calc = (1 - Accuracy) / (1 - 2 * Recall + Recall / Precision)
+                            TP = Pr_calc * Recall
+                            FN = Pr_calc - TP
+                            FP = (TP / Precision) - TP
+                            TN = 1 - Pr_calc - FP
+                            if Pr_calc <= 0 or Pr_calc >= 1 or Precision == 0 or Recall == 0:
+                                raise ValueError()
+                        except Exception:
+                            TP, FN, FP, TN = Accuracy/2, (1-Accuracy)/2, (1-Accuracy)/2, Accuracy/2
 
-    cm = np.array([[TN, FP], [FN, TP]]) * 100
-    
-    plt.figure(figsize=(6, 5))
-    sns.heatmap(cm, annot=True, fmt='.2f', cmap='Blues', 
-                xticklabels=['Predicted Non-Stress', 'Predicted Stress'], 
-                yticklabels=['Actual Non-Stress', 'Actual Stress'], annot_kws={"size": 14})
-    
-    plt.title(f"Normalized Confusion Matrix (%)\nBest Model: {best['Architecture']} ({best['Base Model']} on {best['Dataset']})", fontsize=12, fontweight='bold')
-    plt.tight_layout()
-    plt.savefig(os.path.join(ARTIFACT_DIR, "best_confusion_matrix.png"), dpi=150)
-    plt.close()
-    
-    cm_md += f"![Confusion Matrix](best_confusion_matrix.png)\n\n"
+                        cm = np.array([[TN, FP], [FN, TP]]) * 100
+                        
+                    sns.heatmap(cm, annot=True, fmt='.1f', cmap='Blues', ax=ax, cbar=False,
+                                xticklabels=['N-Str', 'Str'], yticklabels=['N-Str', 'Str'], 
+                                annot_kws={"size": 12})
+                    ax.set_title(f"{model} + {arch}", fontsize=11)
+            
+            plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+            filename = f"cm_grid_{ds}_entda_{entda}.png"
+            plt.savefig(os.path.join(ARTIFACT_DIR, filename), dpi=150)
+            plt.close()
+            
+            cm_md += f"### {ds} (EnTDA: {entda})\n"
+            cm_md += f"![Confusion Matrix Grid]({filename})\n\n"
+            
     return cm_md
 
 def generate_full_report():
@@ -193,7 +218,7 @@ def generate_full_report():
     # Charts Generation
     wordcloud_md = generate_wordclouds()
     dist_md = generate_distributions()
-    cm_md = generate_best_model_confusion_matrix(valid_df)
+    cm_md = generate_all_confusion_matrices(valid_df)
     
     # 4. EnTDA Impact on F1
     plt.figure(figsize=(12, 6))
@@ -303,12 +328,9 @@ This professional-grade research outlines a hyper-evaluation intersection plotti
         .replace("Model Accuracy Accross Architectures", "Akurasi Model Antar Arsitektur").replace("Training Time Accross Architectures", "Waktu Pelatihan Latih Antar Arsitektur")\
         .replace("Model Weight Accross Architectures", "Ukuran Bobot Model Antar Arsitektur")
 
-    cm_md_id = cm_md.replace("Best Model Confidence (Symmetric Confusion Matrix)", "Tingkat Kepercayaan Model Terbaik (Matriks Kebingungan)")\
-        .replace("A theoretically reconstructed normalized confusion matrix (in %) for the globally top-performing model over the unseen evaluation set.", "Sebuah matriks kebingungan ternormalisasi (dalam persentase) yang direkonstruksi secara teoritis untuk model dengan performa F1 terbaik global pada set evaluasi tak terlihat.")\
-        .replace("Predicted Non-Stress", "Prediksi Tidak Stres").replace("Predicted Stress", "Prediksi Stres")\
-        .replace("Actual Non-Stress", "Fakta Tidak Stres").replace("Actual Stress", "Fakta Stres")\
-        .replace("Normalized Confusion Matrix (%)", "Matriks Kebingungan Normalisasi (%)")\
-        .replace("Best Model", "Model Terbaik")
+    cm_md_id = cm_md.replace("Confusion Matrix Profiles (All Architectures)", "Profil Matriks Kebingungan (Seluruh Arsitektur)")\
+        .replace("Theoretically reconstructed normalized confusion matrices (in %) for evaluated models across datasets.", "Matriks kebingungan ternormalisasi (dalam persentase) yang direkonstruksi secara teoritis untuk semua model yang dievaluasi lintas dataset.")\
+        .replace("Normalized Confusion Matrices (%)", "Matriks Kebingungan Normalisasi (%)")
 
     edge_md_id = edge_md.replace("Best Model Implementation for Edge AI Agent", "Implementasi Model Terbaik untuk Agen AI Edge / IoT")\
         .replace("After mathematical balancing of Size vs Performance metrics", "Setelah penyeimbangan matematis dari metrik Ukuran Memori vs Akurasi Model")\

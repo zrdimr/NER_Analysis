@@ -86,11 +86,21 @@ This professional-grade research outlines a hyper-evaluation intersection plotti
 
 ---
 
-## 3. Best Model Confidence (Symmetric Confusion Matrix)
+## 3. Confusion Matrix Profiles (All Architectures)
 
-*A theoretically reconstructed normalized confusion matrix (in %) for the globally top-performing model over the unseen evaluation set.*
+*Theoretically reconstructed normalized confusion matrices (in %) for evaluated models across datasets.*
 
-![Confusion Matrix](best_confusion_matrix.png)
+### dreaddit (EnTDA: False)
+![Confusion Matrix Grid](cm_grid_dreaddit_entda_False.png)
+
+### dreaddit (EnTDA: True)
+![Confusion Matrix Grid](cm_grid_dreaddit_entda_True.png)
+
+### Vibree_Synthetic_English (EnTDA: False)
+![Confusion Matrix Grid](cm_grid_Vibree_Synthetic_English_entda_False.png)
+
+### Vibree_Synthetic_English (EnTDA: True)
+![Confusion Matrix Grid](cm_grid_Vibree_Synthetic_English_entda_True.png)
 
 
 

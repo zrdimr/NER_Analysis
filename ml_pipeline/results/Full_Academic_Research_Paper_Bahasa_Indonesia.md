@@ -86,11 +86,21 @@ Penelitian kelas profesional ini menguraikan persimpangan evaluasi-hiper yang me
 
 ---
 
-## 3. Tingkat Kepercayaan Model Terbaik (Matriks Kebingungan)
+## 3. Profil Matriks Kebingungan (Seluruh Arsitektur)
 
-*Sebuah matriks kebingungan ternormalisasi (dalam persentase) yang direkonstruksi secara teoritis untuk model dengan performa F1 terbaik global pada set evaluasi tak terlihat.*
+*Matriks kebingungan ternormalisasi (dalam persentase) yang direkonstruksi secara teoritis untuk semua model yang dievaluasi lintas dataset.*
 
-![Confusion Matrix](best_confusion_matrix.png)
+### dreaddit (EnTDA: False)
+![Confusion Matrix Grid](cm_grid_dreaddit_entda_False.png)
+
+### dreaddit (EnTDA: True)
+![Confusion Matrix Grid](cm_grid_dreaddit_entda_True.png)
+
+### Vibree_Synthetic_English (EnTDA: False)
+![Confusion Matrix Grid](cm_grid_Vibree_Synthetic_English_entda_False.png)
+
+### Vibree_Synthetic_English (EnTDA: True)
+![Confusion Matrix Grid](cm_grid_Vibree_Synthetic_English_entda_True.png)
 
 
 
