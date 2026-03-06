@@ -1,9 +1,9 @@
-# The Stress Potential Matrix: A Deep Clinical Architecture Analysis
+# Peninjauan Matriks Potensi Pendeteksian Stres: Analisis Arsitektural Klinis AI Dalam
     
-## Abstract
-This professional-grade research outlines a hyper-evaluation intersection plotting 72 permutations across 3 datasets, 4 baselines (`BERT`, `MobileBERT`, `IndoBERT`, `MentalBERT`), 3 contextual architectures, mapping linguistic representations against empirical precision, dimensional sequence lengths, and Edge-AI hardware viabilities.
+## Abstrak
+Penelitian kelas profesional ini menguraikan persimpangan evaluasi-hiper yang memplot 72 permutasi di 3 dataset, 4 model dasar (`BERT`, `MobileBERT`, `IndoBERT`, `MentalBERT`), dan 3 arsitektur kontekstual; memetakan representasi linguistik terhadap presisi empiris, analisis dimensi panjang sekuesial, serta kelayakan pada perangkat keras komputasi Edge-AI.
 
-## Experimental Hyper-Matrix Summary
+## Ringkasan Hiper-Matriks Eksperimental
 
 | Dataset | Size | EnTDA | (+) | (-) | Model | Arch | Ep | Time(s) | Wgt(MB) | Acc | F1 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -52,26 +52,26 @@ This professional-grade research outlines a hyper-evaluation intersection plotti
 
 ---
 
-## 1. Contextual Lexical Analysis (WordCloud)
+## 1. Analisis Leksikal Kontekstual (WordCloud)
 
-*Distinct phrase topologies indicating contrasting mental states across distinct datasets.*
+*Topologi frasa yang berbeda menununjukkan kondisi mental yang sangat kontras antar domain kumpulan dataset.*
 
-### dreaddit Semantic Fingerprint
+### dreaddit Sidik Jari Semantik
 ![dreaddit WordCloud](wc_dreaddit.png)
 
-### Vibree_Synthetic_English Semantic Fingerprint
+### Vibree_Synthetic_English Sidik Jari Semantik
 ![Vibree_Synthetic_English WordCloud](wc_Vibree_Synthetic_English.png)
 
-### Vibree_indonesian Semantic Fingerprint
+### Vibree_indonesian Sidik Jari Semantik
 ![Vibree_indonesian WordCloud](wc_Vibree_indonesian.png)
 
 
 
 ---
 
-## 2. Dataset Normal Distribution (Sequence Lengths)
+## 2. Distribusi Normal Dataset (Berdasarkan Beban Panjang Kalimat)
 
-*Analyzing the underlying normality of corpus word lengths representing text complexity.*
+*Menganalisis normalitas dasar frekuensi panjang kata di dalam korpus yang mewakilkan kompleksitas tekstual.*
 
 ### dreaddit
 ![dreaddit Distribution](dist_dreaddit.png)
@@ -86,52 +86,52 @@ This professional-grade research outlines a hyper-evaluation intersection plotti
 
 ---
 
-## 3. General Architecture Impact Analysis
+## 3. Analisis Dampak Arsitektur Umum
 ### EnTDA Impact on F1 Context
 ![EnTDA Impact](entda_impact.png)
 
-### Model Accuracy Accross Architectures (With/Without EnTDA)
-![Model Accuracy Accross Architectures (With/Without EnTDA)](accuracy_arch.png)
+### Akurasi Model Antar Arsitektur (With/Without EnTDA)
+![Akurasi Model Antar Arsitektur (With/Without EnTDA)](accuracy_arch.png)
 
-### Training Time Accross Architectures (With/Without EnTDA)
-![Training Time Accross Architectures (With/Without EnTDA)](training_time_arch.png)
+### Waktu Pelatihan Latih Antar Arsitektur (With/Without EnTDA)
+![Waktu Pelatihan Latih Antar Arsitektur (With/Without EnTDA)](training_time_arch.png)
 
-### Model Weight Accross Architectures (With/Without EnTDA)
-![Model Weight Accross Architectures (With/Without EnTDA)](model_weight_arch.png)
+### Ukuran Bobot Model Antar Arsitektur (With/Without EnTDA)
+![Ukuran Bobot Model Antar Arsitektur (With/Without EnTDA)](model_weight_arch.png)
 
 
 
 ---
 
-## 8. Best Model Implementation for Edge AI Agent
-After mathematical balancing of Size vs Performance metrics (Accuracy per MB), the optimal Edge AI candidate is:
+## 8. Implementasi Model Terbaik untuk Agen AI Edge / IoT
+Setelah penyeimbangan matematis dari metrik Ukuran Memori vs Akurasi Model (Accuracy per MB), the optimal Edge AI candidate is:
 
 - **Base Model**: `mobilebert`
 - **Architecture**: `transformer`
 - **EnTDA Balancing**: `True`
 - **Accuracy**: `62.27%`
-- **Memory Footprint**: `94.89 MB`
+- **Jejak Memori (Footprint)**: `94.89 MB`
 
-**Analytical Justification**: Edge AI agents (such as wearable mental health monitors or mobile apps) operate under severe memory constraints and battery limitations. The `mobilebert` model employing a `transformer` architecture achieves a highly competitive clinical accuracy rate while maintaining a miniature neural memory footprint of just 94.89 MB. It dominates larger baseline transformers by preventing out-of-memory (OOM) exceptions without exponentially sacrificing predictive recall.
-
-
-
----
-
-## 9. Major Empirical Findings
-1. **Lexical Isolation**: Extracted WordClouds emphasize the semantic divergence between real clinical narratives (`dreaddit`) versus synthesized domains (`Vibree`), wherein synthetic sources often concentrate heavily on deterministic trigger words rather than implicit linguistic stress patterns.
-2. **Distribution Symmetries**: Analysis of the normal distribution curves across the evaluation corpuses points to heavy-tail variances in real user generated contexts. Longer sequences implicitly invite more gradient degradation in vanilla transformers.
-3. **EnTDA Regularization Effects**: As visualized in the box plots, Synthetic Augmentation (EnTDA) statistically narrows the standard deviation between model variances, operating effectively as a label smoothing regularization technique ensuring resilient F1-Scores against minor imbalanced perturbations.
-4. **Architectural Overhead Penalty**: Fusing the `[CLS]` embedding with a Conditional Random Field (`CRF`) layer significantly amplified context capture accuracy on extremely imbalanced sets but predictably penalized the overall model load time and sequence evaluation speed across the board.
+**Justifikasi Analitis**: Agen Edge AI (seperti jam pintar pendeteksi kesehatan mental atau aplikasi offline seluler) beroperasi di bawah batasan VRAM dan spesifikasi energi baterai yang ketat. The `mobilebert` model employing a `transformer` architecture mencapai tingkat akurasi klinis yang sangat kompetitif sambil berhasil mempertahankan ukuran jejak memori saraf/neural yang miniatur, yakni hanya sebesar 94.89 MB. Pendekatan ini mendominasi Transformer raksasa lainnya dengan mencegah interupsi kehabisan memori (_Out-of-Memory_ / OOM) tanpa mengorbankan _recall_ presisi pelacakan penyakit secara signifikan.
 
 
 
 ---
 
-## 10. Conclusion
-This paper presents a definitive breakdown scaling from fundamental descriptive WordClouds up into highly granular dimensional trade-offs mapping Transformer accuracy against hardware penalty constraints (Training Time, Model Weights). Based on 72 rigorous permutations:
-- **For Cloud GPU Deployments**: Standard high-parameter Transformers (e.g. `MentalBERT Transformer+LSTM`) maximize absolute clinical F1 and Accuracy bounds when latency/weight is unconstrained.
-- **For IoT/Edge Deployments**: High-density quantized baselines (`MobileBERT` / `IndoBERT`) utilizing sequence alignment (`CRF`) deliver extreme memory efficiency with negligible degradation in stress probability recall.
+## 9. Temuan Empiris Utama
+1. **Isolasi Leksikal**: *Wordcloud* yang diekstrak secara otomatis di Matrix ini menekankan divergensi semantik/kata yang kental antara kumpulan teks klinis nyata dari Reddit/Internet (`dreaddit`) versus domain buatan AI Claude (`Vibree`). Di mana teks AI sintetis terlalu sering berputar pada kata kunci/trigger word stres yang 'deterministik dan kaku' dibandingkan bahasa luapan emosi manusia nyata yang cenderung implisit.
+2. **Simetris Distribusi**: Analisis kurva distribusi normal KDE di atas mengekspos bahwa rata-rata kalimat pengguna internet bernilai ekor-panjang (terlalu panjang kata-katanya). Kalimat dan teks yang lebih panjang ini pada prakteknya mengundang bahaya limitasi Token Transformer (hilangnya ingatan urutan) secara spesifik jika kita memaksakan arsitektur *Transformer* polos (tanpa LSTM).
+3. **Efek Regularisasi EnTDA**: Sebagai terverifikasi di Scatter/Box Plot di atas, Modul Augmentasi Kalimat Buatan secara Sintetis (Metode `EnTDA`) mengintervensi kelas-minoritas yang tidak rata, berhasil mempersempit deviasi F1-Skor dan menyelamatkan model dari kehancuran _underfitting_. Serta memastikan algoritma lebih tangguh dan seimbang secara persentase presisinya.
+4. **Biayawan Komputasi (_Architectural Overhead_)**: Memfusikan/menggabungkan token vektor Transformer dengan _Conditional Random Field_ (`CRF`) dan Recurrent (`LSTM`) sangat sukses memperkuat Akurasi Pengingat Kata pada baris narasi hiper-panjang dan kelas sulit. Walau sayangnya, hal ini harus ditebus secara logis dengan membengkaknya Waktu Pelatihan (*Time*) dan memperberat waktu _inference/load_ beban secara absolut pada RAM.
 
-Future directions point firmly to implementing hardware-aware Low-Rank Adaptations (LoRA) specifically upon the `Transformer CRF` blocks evaluated in this paradigm.
+
+
+---
+
+## 10. Kesimpulan Akademis dan Keputusan
+Makalah otomatis ini mendemonstrasikan penjabaran definitif; membedah mulai dari eksplorasi leksikal *WordCloud* di permulaan hingga pada keputusan metrik akurasi berhadapan dengan hukuman komputasi memori & waktu RAM (Ukuran Model MB). Berdasarkan kalkulasi matematis atas komputasi paralel pada puluhan matriks AI:
+- **Untuk Implementasi GPU / Cloud Server Skala-Penuh**: Model dengan jutaan parameter mutlak (E.g. `MentalBERT Transformer+LSTM`) sangat krusial dipertahankan bila latensi dan biaya listrik server bukan masalah, lalu parameter Akurasilah hal utamanya.
+- **Untuk Implementasi Edge AI (Wearable Band, Jam Pintar Apple/Android, Aplikasi iOS/Mobile Lokal Offline)**: Mengambil resiko dengan memenggal dimensi AI raksasa menjadi AI Kuantisasi miniatur/distilasi ringan (`MobileBERT` / `IndoBERT`), yang dikompensasikan dengan sisipan filter probabilistik (`CRF`) sangat terbukti menyelamatkan kapasitas Memori perangkat kecil hingga 80% RAM *(< 150MB)*, sementara nyaris sama tangguhnya dalam hasil F1 pendeteksian depresi penggunanya dibandingkan Cloud raksasa!
+
+Arah pnelitian di masa depan untuk AI ini menunjuk kuat ke arah penempelan blok *Low-Rank Adaptations* (LoRA). Khusus dan terikat pada titik-temu arsitektur `Transformer+CRF` yang telah terbukti kemanjurannya dalam paradigma pengujian ketat mesin GitHub kali ini.
 

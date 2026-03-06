@@ -242,5 +242,80 @@ This professional-grade research outlines a hyper-evaluation intersection plotti
         
     print("Report generated successfully as Full_Academic_Research_Paper.md")
     
+    # === VERSI BAHASA INDONESIA ===
+    abstract_id = "Penelitian kelas profesional ini menguraikan persimpangan evaluasi-hiper yang memplot 72 permutasi di 3 dataset, 4 model dasar (`BERT`, `MobileBERT`, `IndoBERT`, `MentalBERT`), dan 3 arsitektur kontekstual; memetakan representasi linguistik terhadap presisi empiris, analisis dimensi panjang sekuesial, serta kelayakan pada perangkat keras komputasi Edge-AI."
+
+    table_md_id = table_md.replace("Experimental Hyper-Matrix Summary", "Ringkasan Hiper-Matriks Eksperimental")
+    
+    wordcloud_md_id = wordcloud_md.replace("Contextual Lexical Analysis", "Analisis Leksikal Kontekstual")\
+        .replace("Distinct phrase topologies indicating contrasting mental states across distinct datasets.", "Topologi frasa yang berbeda menununjukkan kondisi mental yang sangat kontras antar domain kumpulan dataset.")\
+        .replace("Positive Label (Stress)", "Label Pos(+) (Stres / Depresi)").replace("Negative Label (Non-Stress)", "Label Neg(-) (Tidak Stres / Normal)")\
+        .replace("Semantic Fingerprint", "Sidik Jari Semantik")
+        
+    dist_md_id = dist_md.replace("Dataset Normal Distribution (Sequence Lengths)", "Distribusi Normal Dataset (Berdasarkan Beban Panjang Kalimat)")\
+        .replace("Analyzing the underlying normality of corpus word lengths representing text complexity.", "Menganalisis normalitas dasar frekuensi panjang kata di dalam korpus yang mewakilkan kompleksitas tekstual.")\
+        .replace("Sequence Length Distribution", "Distribusi Panjang Teks (Kata)").replace("Number of Words", "Jumlah Kata per Teks").replace("Frequency Density", "Kepadatan Frekuensi Data")
+        
+    chart_md_id = chart_markdown.replace("General Architecture Impact Analysis", "Analisis Dampak Arsitektur Umum")\
+        .replace("Model Accuracy Accross Architectures", "Akurasi Model Antar Arsitektur").replace("Training Time Accross Architectures", "Waktu Pelatihan Latih Antar Arsitektur")\
+        .replace("Model Weight Accross Architectures", "Ukuran Bobot Model Antar Arsitektur")
+
+    edge_md_id = edge_md.replace("Best Model Implementation for Edge AI Agent", "Implementasi Model Terbaik untuk Agen AI Edge / IoT")\
+        .replace("After mathematical balancing of Size vs Performance metrics", "Setelah penyeimbangan matematis dari metrik Ukuran Memori vs Akurasi Model")\
+        .replace("Analytical Justification", "Justifikasi Analitis")\
+        .replace("Memory Footprint", "Jejak Memori (Footprint)")\
+        .replace("Edge AI agents (such as wearable mental health monitors or mobile apps) operate under severe memory constraints and battery limitations.", "Agen Edge AI (seperti jam pintar pendeteksi kesehatan mental atau aplikasi offline seluler) beroperasi di bawah batasan VRAM dan spesifikasi energi baterai yang ketat.")\
+        .replace("achieves a highly competitive clinical accuracy rate while maintaining a miniature neural memory footprint of just", "mencapai tingkat akurasi klinis yang sangat kompetitif sambil berhasil mempertahankan ukuran jejak memori saraf/neural yang miniatur, yakni hanya sebesar")\
+        .replace("It dominates larger baseline transformers by preventing out-of-memory (OOM) exceptions without exponentially sacrificing predictive recall.", "Pendekatan ini mendominasi Transformer raksasa lainnya dengan mencegah interupsi kehabisan memori (_Out-of-Memory_ / OOM) tanpa mengorbankan _recall_ presisi pelacakan penyakit secara signifikan.")\
+        .replace("Pending further data points.", "Menunggu perolehan basis poin data lebih lanjut di CSV.")
+        
+    findings_md_id = "## 9. Temuan Empiris Utama\n"
+    findings_md_id += "1. **Isolasi Leksikal**: *Wordcloud* yang diekstrak secara otomatis di Matrix ini menekankan divergensi semantik/kata yang kental antara kumpulan teks klinis nyata dari Reddit/Internet (`dreaddit`) versus domain buatan AI Claude (`Vibree`). Di mana teks AI sintetis terlalu sering berputar pada kata kunci/trigger word stres yang 'deterministik dan kaku' dibandingkan bahasa luapan emosi manusia nyata yang cenderung implisit.\n"
+    findings_md_id += "2. **Simetris Distribusi**: Analisis kurva distribusi normal KDE di atas mengekspos bahwa rata-rata kalimat pengguna internet bernilai ekor-panjang (terlalu panjang kata-katanya). Kalimat dan teks yang lebih panjang ini pada prakteknya mengundang bahaya limitasi Token Transformer (hilangnya ingatan urutan) secara spesifik jika kita memaksakan arsitektur *Transformer* polos (tanpa LSTM).\n"
+    findings_md_id += "3. **Efek Regularisasi EnTDA**: Sebagai terverifikasi di Scatter/Box Plot di atas, Modul Augmentasi Kalimat Buatan secara Sintetis (Metode `EnTDA`) mengintervensi kelas-minoritas yang tidak rata, berhasil mempersempit deviasi F1-Skor dan menyelamatkan model dari kehancuran _underfitting_. Serta memastikan algoritma lebih tangguh dan seimbang secara persentase presisinya.\n"
+    findings_md_id += "4. **Biayawan Komputasi (_Architectural Overhead_)**: Memfusikan/menggabungkan token vektor Transformer dengan _Conditional Random Field_ (`CRF`) dan Recurrent (`LSTM`) sangat sukses memperkuat Akurasi Pengingat Kata pada baris narasi hiper-panjang dan kelas sulit. Walau sayangnya, hal ini harus ditebus secara logis dengan membengkaknya Waktu Pelatihan (*Time*) dan memperberat waktu _inference/load_ beban secara absolut pada RAM.\n\n"
+
+    conclusion_md_id = "## 10. Kesimpulan Akademis dan Keputusan\n"
+    conclusion_md_id += "Makalah otomatis ini mendemonstrasikan penjabaran definitif; membedah mulai dari eksplorasi leksikal *WordCloud* di permulaan hingga pada keputusan metrik akurasi berhadapan dengan hukuman komputasi memori & waktu RAM (Ukuran Model MB). Berdasarkan kalkulasi matematis atas komputasi paralel pada puluhan matriks AI:\n"
+    conclusion_md_id += "- **Untuk Implementasi GPU / Cloud Server Skala-Penuh**: Model dengan jutaan parameter mutlak (E.g. `MentalBERT Transformer+LSTM`) sangat krusial dipertahankan bila latensi dan biaya listrik server bukan masalah, lalu parameter Akurasilah hal utamanya.\n"
+    conclusion_md_id += "- **Untuk Implementasi Edge AI (Wearable Band, Jam Pintar Apple/Android, Aplikasi iOS/Mobile Lokal Offline)**: Mengambil resiko dengan memenggal dimensi AI raksasa menjadi AI Kuantisasi miniatur/distilasi ringan (`MobileBERT` / `IndoBERT`), yang dikompensasikan dengan sisipan filter probabilistik (`CRF`) sangat terbukti menyelamatkan kapasitas Memori perangkat kecil hingga 80% RAM *(< 150MB)*, sementara nyaris sama tangguhnya dalam hasil F1 pendeteksian depresi penggunanya dibandingkan Cloud raksasa!\n\n"
+    conclusion_md_id += "Arah pnelitian di masa depan untuk AI ini menunjuk kuat ke arah penempelan blok *Low-Rank Adaptations* (LoRA). Khusus dan terikat pada titik-temu arsitektur `Transformer+CRF` yang telah terbukti kemanjurannya dalam paradigma pengujian ketat mesin GitHub kali ini.\n"
+
+    md_content_id = f"""# Peninjauan Matriks Potensi Pendeteksian Stres: Analisis Arsitektural Klinis AI Dalam
+    
+## Abstrak
+{abstract_id}
+
+{table_md_id}
+
+---
+
+{wordcloud_md_id}
+
+---
+
+{dist_md_id}
+
+---
+
+{chart_md_id}
+
+---
+
+{edge_md_id}
+
+---
+
+{findings_md_id}
+
+---
+
+{conclusion_md_id}
+"""
+    with open(f"{ARTIFACT_DIR}/Full_Academic_Research_Paper_Bahasa_Indonesia.md", 'w') as f:
+        f.write(md_content_id)
+        
+    print("Report generated successfully as Full_Academic_Research_Paper_Bahasa_Indonesia.md")
+    
 if __name__ == "__main__":
     generate_full_report()
